@@ -57,6 +57,7 @@ Se implemento para generar instancias de modelos en las pruebas, facilitando las
 - Utilizar la consola de su preferencia y ubicarse en la carpeta del proycto que acaba de extraer del repositorio
 - Tener instalado Docker o en su defecto instalar Docker Desktop
 - Ejecutar el comando docker compose up --build
+- Probar las rutas con la herramienta de su preferencia (Postman o la extension de visual studio code "ThunderClient")
 - para ejecutar las pruebas, pueden abrir otra ventana en la consola, ubicarsen en la carpeta del proyecto y ejecutar el comando php artisan test.
 
 `Nota`: en la tabla resources ya hay 3 recursos creados, con los cuales se pueden empezar a realizar las pruebas de los endpoints para listarlos y demas, o si desean crear un recurso nuevo se puede realizar sin ningun problema.
