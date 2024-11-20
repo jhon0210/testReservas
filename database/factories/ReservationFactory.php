@@ -12,10 +12,11 @@ class ReservationFactory extends Factory
     public function definition()
     {
         return [
-            'resource_id' => $this->faker->numberBetween(1, 10), // Ajusta según tus necesidades
-            'reserved_at' => $this->faker->dateTimeThisYear(), // Fecha aleatoria dentro de este año
-            'duration' => $this->faker->numberBetween(30, 120), // Duración aleatoria entre 30 y 120 minutos
-            'status' => 'confirmed', // Estado por defecto
+            'resource_id' => $this->faker->numberBetween(1, 10),
+            'reserved_at' => $this->faker->dateTimeThisYear(),
+            'duration' => $this->faker->numberBetween(30, 120), 
+            'status' => 'confirmed', 
         ];
     }
+
 }
