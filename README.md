@@ -1,66 +1,67 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Proyecto: Sistema de Reservas de Recursos
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este proyecto es una API desarrollada en Laravel para gestionar la disponibilidad y reservas de recursos. La API utiliza SQLite como base de datos y sigue principios de diseño orientados a la modularidad y la simplicidad para facilitar su mantenimiento y escalabilidad.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## **Estructura y Diseño del Sistema**
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+El sistema se organiza siguiendo la arquitectura **Model-View-Controller (MVC)**, adaptada a las buenas prácticas de Laravel. A continuación, se detalla la estructura principal del proyecto:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### **1. Directorio Principal**
+- `app/`: Contiene la lógica principal de la aplicación.
+  - `Models/`: Contiene los modelos que representan las tablas en la base de datos (`Resource`, `Reservation`).
+  - `Repositories/`: Implementa la lógica de acceso a datos y encapsula consultas complejas a la base de datos.
+  - `Http/Controllers/`: Contiene los controladores responsables de manejar las solicitudes HTTP y delegar la lógica al servicio correspondiente.
+- `database/`: Contiene las migraciones, fábricas y seeders para configurar y poblar la base de datos.
+  - `factories/`: Genera datos de prueba para modelos.
+  - `migrations/`: Scripts que definen la estructura de la base de datos.
+- `tests/`: Contiene pruebas unitarias y de integración para validar el correcto funcionamiento del sistema.
+  - `Unit/`: Pruebas individuales para funciones específicas.
+  - `Feature/`: Pruebas que verifican el comportamiento de la API en conjunto.
 
-## Learning Laravel
+### **2. Diseño de la API**
+- Endpoints:
+  - `GET /api/resources`: Lista los recursos disponibles.
+  - `POST /api/reservations`: Crea una nueva reserva para un recurso específico.
+  - `GET /api/resources/{id}/availability`: Verifica la disponibilidad de un recurso para un horario específico.
+- Base de datos:
+  - **Tabla `resources`**:
+    - Campos principales: `name`, `description`, `capacity`.
+  - **Tabla `reservations`**:
+    - Relación con `resources` (clave foránea `resource_id`).
+    - Campos principales: `reserved_at`, `duration`, `status`.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### **3. Patrón de Diseño Repositorio**
+El acceso a datos se abstrae mediante el uso de repositorios (`ResourceRepository`, `ReservationRepository`) para desacoplar la lógica de consultas SQL del resto de la aplicación. Esto facilita el mantenimiento y pruebas.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## **Decisiones de Diseño**
 
-## Laravel Sponsors
+### **1. Patrón MVC**
+El patrón MVC se eligió porque:
+- Es un estándar en Laravel y permite una clara separación de responsabilidades.
+- Facilita la escalabilidad al organizar el código de manera coherente.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### **2. Uso del Patrón Repositorio**
+El patrón repositorio encapsula la lógica de acceso a datos, proporcionando:
+- **Modularidad**: Las consultas complejas se abstraen, lo que facilita el cambio del motor de base de datos si es necesario.
+- **Reutilización**: La misma lógica de datos se puede usar en diferentes partes de la aplicación.
 
-### Premium Partners
+### **3. Base de Datos SQLite**
+SQLite fue elegida para este proyecto porque:
+- Es ligera y no requiere configuración adicional, ideal para entornos de desarrollo o pruebas rápidas.
+- Permite portar el proyecto fácilmente a otras bases de datos más robustas en entornos de producción.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### **4. Pruebas Unitarias e Integrales**
+Se integraron pruebas unitarias para garantizar:
+- **Fiabilidad del código**: Cada componente funciona según lo esperado.
+- **Prevención de regresiones**: Cambios en el código no rompen funcionalidades existentes.
+  
+### **5. Uso de Fábricas y Seeders**
+Se utilizaron fábricas para generar datos de prueba, lo que:
+- Acelera la configuración del entorno de desarrollo.
+- Asegura un conjunto coherente de datos para las pruebas.
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
