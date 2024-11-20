@@ -53,7 +53,7 @@ Se implemento para generar instancias de modelos en las pruebas, facilitando las
 ### **Pasos de Instalacion**
 
 - Ubicarse en la carpeta donde quiere iniciar el proyecto en la consola
-- Ejecutar el comando git clone
+- Ejecutar el comando git clone https://github.com/jhon0210/testReservas.git
 - Utilizar la consola de su preferencia y ubicarse en la carpeta del proycto que acaba de extraer del repositorio
 - Tener instalado Docker o en su defecto instalar Docker Desktop
 - Ejecutar el comando docker compose up --build
