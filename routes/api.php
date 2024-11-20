@@ -12,10 +12,20 @@ Route::post('/alta', [ResourceController::class, 'store']);
 Route::get('/resources', [ResourceController::class, 'index']);
 
 /* Ruta para listar un recurso disponible en horario especifico**/
-Route::get('/resources/{id}/availability', [ResourceController::class, 'availability']);
+//Route::get('/resources/{id}/availability', [ResourceController::class, 'validacionDisponibilidad']);
+
+Route::get('/resources/{id}/availability/{reserved_at}/{duration}', [ResourceController::class, 'validacionDisponibilidad']);
 
 /* Ruta para realizar la reserva del recurso**/
 Route::post('/reservations', [ReservationController::class, 'store']);
 
 /* Ruta para cancelar la reserva por el id de la tabla reservations**/
 Route::delete('/reservations/{id}', [ReservationController::class, 'destroy']);
+
+
+Route::post('/reservationsTest', [ReservationController::class, 'store'])->name('reservations.store');
+
+//Route::delete('/cancelacionReservaTest/{id}', [ReservationController::class, 'cancelacionTest']);
+
+// Route::delete('/cancelacionReservaTest/{id}', [ReservationController::class, 'cancel'])->name('reservations.cancel');
+

@@ -60,5 +60,11 @@ class ReservationController extends Controller
         return response()->json(['message' => 'No se encontró ninguna reserva con el ID especificado.'], 404);
     }
 
+   
+
+
+
+
+
 
 }
