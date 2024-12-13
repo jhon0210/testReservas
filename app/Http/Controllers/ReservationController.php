@@ -32,7 +32,7 @@ class ReservationController extends Controller
         $conflicts = $this->reservationRepo->checkAvailability($resourceId, $reservedAt, $duration);
 
         if ($conflicts) {
-            return response()->json(['message' => 'El recurso no está disponible en el horario especificado.'], 409);
+            return response()->json(['message' => 'El recurso no está disponible en el horario especificado, por favor validar.'], 409);
         }
 
         $reservation = $this->reservationRepo->create([
